@@ -1,5 +1,5 @@
 output "organization_arn" {
-  value = aws_organizations_organization.organization.arn
+  value = try(aws_organizations_organization.organization.arn, null)
 }
 
 output "organizational_units" {
