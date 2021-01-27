@@ -4,6 +4,11 @@ variable "feature_set" {
   description = "The feature set of the organization. One of 'ALL' or 'CONSOLIDATED_BILLING'."
 }
 
+variable "create_organization" {
+  type = bool
+  default = false
+}
+
 variable "organizational_units" {
   type = list(object({
     name = string,
