@@ -1,3 +1,7 @@
+data "aws_organizations_organizational_units" "ou" {
+  parent_id = data.aws_organizations_organization.org.roots[0].id
+}
+
 locals {
   level_1_ou_arguments = [
     for ou in var.organizational_units : ou
@@ -27,7 +31,7 @@ locals {
 resource "aws_organizations_organizational_unit" "level_1_ous" {
   count = length(local.level_1_ou_arguments)
   name = local.level_1_ou_arguments[count.index].name
-  parent_id = aws_organizations_organization.organization.roots[0].id
+  parent_id = data.aws_organizations_organization.org.roots[0].id
 }
 
 resource "aws_organizations_organizational_unit"  "level_2_ous" {
@@ -48,7 +52,7 @@ locals {
       {
         id = aws_organizations_organizational_unit.level_1_ous[index(local.level_1_ou_arguments, ou)].id,
         arn = aws_organizations_organizational_unit.level_1_ous[index(local.level_1_ou_arguments, ou)].arn,
-        parent_id = aws_organizations_organization.organization.roots[0].id,
+        parent_id = data.aws_organizations_organization.org.roots[0].id,
         name = ou.name,
       }
   ]

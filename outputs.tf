@@ -1,6 +1,6 @@
-output "organization_arn" {
-  value = aws_organizations_organization.organization.arn
-}
+# output "organization_arn" {
+#   value = aws_organizations_organization.organization.arn
+# }
 
 output "organizational_units" {
   value = local.all_ou_attributes
